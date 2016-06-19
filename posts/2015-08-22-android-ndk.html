@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+		<title>Android NDK学习入门教程 | Bruce Kung</title>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="../css/clean-blog.min.css" rel="stylesheet">
+
+		<!-- Custom Fonts -->
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="../css/comment.css" />
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	</head>
+
+	<body>
+
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header page-scroll">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+					<a class="navbar-brand" href="../index.html">Bruce Kung</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="../index.html">Home</a>
+						</li>
+						<li>
+							<a href="../about.html">About</a>
+						</li>
+						<li>
+							<a href="http://ibrucekong.github.io">Old Blog</a>
+						</li>
+						<li>
+							<a href="https://github.com/ibrucekung/ibrucekung.github.io">Fork</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container -->
+		</nav>
+
+		<!-- Page Header -->
+		<!-- Set your background image for this header on the line below. -->
+		<header class="intro-header" style="background-image: url('../img/post-bg.jpg')">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+						<div class="post-heading">
+							<h1>Android NDK学习入门教程</h1>
+							<h2 class="subheading">使用Android NDK主要就是为了提升应用的性能,同时NDK绕过了Android的虚拟机的限制,可以使用一些更加底层的方法或是权限。</h2>
+							<span class="meta">Posted by <a href="#">ibrucekung</a> on August 22, 2015</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Post Content -->
+		<article>
+			<div class="container">
+				<div class="row">
+					<h4>Platform : Android Studio 1.4 preview2</h4>
+					<h4>Gradle Version : 2.5</h4>
+					<h4>Gradle Plugin Version : 1.3.1</h4>
+					<h4>Version : 1.0</h4>
+					<h4><a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/hexpm/l/plug.svg"></a></h4>
+					<h4>Project website:<a href="https://github.com/kebe0325/NDKtest.git">GitHub</a></h4>
+
+					<h2>简介</h2>
+
+					<p style="text-indent: 2em;">Android的NDK开发入门指南.首先说为什么写Android项目要用到NDK开发，这里简单介绍一下其中优点：使用Android NDK主要就是为了提升应用的性能,对于那些对性能要求比较高的app 而言可以使用Android NDK,同时NDK绕过了Android的虚拟机的限制,可以使用一些更加底层的方法或是权限,但是使用Android NDK无论设计的多好,都会增加app的复杂性。</p>
+					<p style="text-indent: 2em;">但是这里我们只是单纯的说一下怎么通过Android进行NDK编程，而不去探讨更深层次的内容，创建一个Android NDK项目一般遵循一下步骤：</p>
+
+					<ol>
+						<li style="text-indent: 2em;">创建一个空项目;</li>
+						<li style="text-indent: 2em;">在配置<b>NDK</b>路径;</li>
+						<li style="text-indent: 2em;">在入口<b>Activity</b>中定义一个<b>native</b>方法;</li>
+						<li style="text-indent: 2em;">利用<b>javah</b>生成<b>c</b>的头文件;</li>
+						<li style="text-indent: 2em;">在<b>jni</b>目录下新建一个<b>c</b>文件;</li>
+						<li style="text-indent: 2em;">引用<b>so</b>文件（没看到<b>so</b>文件）;</li>
+						<li style="text-indent: 2em;">加载<b>so</b>文件;</li>
+						<li style="text-indent: 2em;">配置布局文件和入口文件。</li>
+					</ol>
+
+					<h2>功能实现</h2>
+					<li>创建一个空的<b>project</b>；</li>
+					<li>在<b>local.properties</b>中配置<b>NDK</b>路径：</li>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+ndk<span style="color:#f8f8f2">.</span><span style="color:#66d9ef">dir</span>=D\<span style="color:#f8f8f2">:</span><span style="color:#66d9ef; font-style:italic">\\</span>ComSoftwares<span style="color:#66d9ef; font-style:italic">\\</span>android<span style="color:#f8f8f2">-</span>ndk
+sdk<span style="color:#f8f8f2">.</span><span style="color:#66d9ef">dir</span>=D\<span style="color:#f8f8f2">:</span><span style="color:#66d9ef; font-style:italic">\\</span>ComSoftwares<span style="color:#66d9ef; font-style:italic">\\</span>android<span style="color:#f8f8f2">-</span>sdk
+</pre>
+					<li>在入口<b>Activity</b>中定义一个<b>native</b>方法:</li>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f92672; font-weight:bold">public native</span> String <span style="color:#25faac">getStringFromNative</span><span style="color:#f8f8f2">();</span>
+</pre>
+					<li>利用<b>javah</b>生成<b>c</b>文件：</li>
+					<p style="text-indent: 2em;">根据项目路径和编译环境写出下面功能命令行，</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+javah -<span style="color:#f92672; font-weight:bold">d</span> jni -classpath D<span style="color:#f8f8f2">:</span><span style="color:#66d9ef">\ComSoftwares\android</span>-sdk<span style="color:#66d9ef">\platforms\android</span>-<span style="color:#ae81ff">22</span><span style="color:#66d9ef">\android</span><span style="color:#f8f8f2">.</span>jar;<span style="color:#f8f8f2">..</span>\<span style="color:#f8f8f2">..</span><span style="color:#66d9ef">\build\intermediates\classes\debug</span> com<span style="color:#f8f8f2">.</span>ndktest<span style="color:#f8f8f2">.</span>MainActivity
+</pre>
+					<p style="text-indent: 2em;">在Android Studio中的Terminal控制台中先用<b>cd ../../</b>返回到前两级文件夹，粘贴上面的长串代码，回车执行。会在<b>jni</b>中生成相应的头文件:<b>com_ndktest_MainActivity.h</b>.</p>
+					<p style="text-indent: 2em;">打开<b>com_ndktest_MainActivity.h</b>可以看到：</p>
+
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#75715e">/* DO NOT EDIT THIS FILE - it is machine generated */</span>
+<span style="color:#defa25">#include &lt;jni.h&gt;</span>
+<span style="color:#75715e">/* Header for class com_ndktest_MainActivity */</span>
+
+<span style="color:#defa25">#ifndef _Included_com_ndktest_MainActivity</span>
+<span style="color:#defa25">#define _Included_com_ndktest_MainActivity</span>
+<span style="color:#defa25">#ifdef __cplusplus</span>
+<span style="color:#95f067">extern</span> <span style="color:#e6db74">&quot;C&quot;</span> <span style="color:#f8f8f2">{</span>
+<span style="color:#defa25">#endif</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_BIND_ABOVE_CLIENT</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_BIND_ABOVE_CLIENT 8L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_BIND_ADJUST_WITH_ACTIVITY</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_BIND_ADJUST_WITH_ACTIVITY 128L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_BIND_ALLOW_OOM_MANAGEMENT</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_BIND_ALLOW_OOM_MANAGEMENT 16L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_BIND_AUTO_CREATE</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_BIND_AUTO_CREATE 1L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_BIND_DEBUG_UNBIND</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_BIND_DEBUG_UNBIND 2L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_BIND_IMPORTANT</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_BIND_IMPORTANT 64L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_BIND_NOT_FOREGROUND</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_BIND_NOT_FOREGROUND 4L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_BIND_WAIVE_PRIORITY</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_BIND_WAIVE_PRIORITY 32L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_CONTEXT_IGNORE_SECURITY</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_CONTEXT_IGNORE_SECURITY 2L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_CONTEXT_INCLUDE_CODE</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_CONTEXT_INCLUDE_CODE 1L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_CONTEXT_RESTRICTED</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_CONTEXT_RESTRICTED 4L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_MODE_APPEND</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_MODE_APPEND 32768L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_MODE_ENABLE_WRITE_AHEAD_LOGGING</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_MODE_ENABLE_WRITE_AHEAD_LOGGING 8L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_MODE_MULTI_PROCESS</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_MODE_MULTI_PROCESS 4L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_MODE_PRIVATE</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_MODE_PRIVATE 0L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_MODE_WORLD_READABLE</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_MODE_WORLD_READABLE 1L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_MODE_WORLD_WRITEABLE</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_MODE_WORLD_WRITEABLE 2L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_DEFAULT_KEYS_DIALER</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_DEFAULT_KEYS_DIALER 1L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_DEFAULT_KEYS_DISABLE</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_DEFAULT_KEYS_DISABLE 0L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_DEFAULT_KEYS_SEARCH_GLOBAL</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_DEFAULT_KEYS_SEARCH_GLOBAL 4L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_DEFAULT_KEYS_SEARCH_LOCAL</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_DEFAULT_KEYS_SEARCH_LOCAL 3L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_DEFAULT_KEYS_SHORTCUT</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_DEFAULT_KEYS_SHORTCUT 2L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_RESULT_CANCELED</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_RESULT_CANCELED 0L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_RESULT_FIRST_USER</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_RESULT_FIRST_USER 1L</span>
+<span style="color:#defa25">#undef com_ndktest_MainActivity_RESULT_OK</span>
+<span style="color:#defa25">#define com_ndktest_MainActivity_RESULT_OK -1L</span>
+    <span style="color:#75715e">/*</span>
+<span style="color:#75715e">     * Class:     com_ndktest_MainActivity</span>
+<span style="color:#75715e">     * Method:    getStringFromNative</span>
+<span style="color:#75715e">     * Signature: ()Ljava/lang/String;</span>
+<span style="color:#75715e">     */</span>
+    JNIEXPORT jstring JNICALL Java_com_ndktest_MainActivity_getStringFromNative
+    <span style="color:#f8f8f2">(</span>JNIEnv <span style="color:#f8f8f2">*,</span> jobject<span style="color:#f8f8f2">);</span>
+
+<span style="color:#defa25">#ifdef __cplusplus</span>
+<span style="color:#f8f8f2">}</span>
+<span style="color:#defa25">#endif</span>
+<span style="color:#defa25">#endif</span>
+<span style="color:#f8f8f2">&lt;/</span>jni<span style="color:#f8f8f2">.</span>h<span style="color:#f8f8f2">&gt;</span>
+</pre>
+					<li>在<b>jni</b>中新建一个<b>c</b>文件，将名字命名为：<b>main.c</b>,输入以下内容:</li>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#75715e">//</span>
+<span style="color:#75715e">// Created by Administrator on 2015/8/18.</span>
+<span style="color:#75715e">//</span>
+
+<span style="color:#defa25">#include</span> <span style="color:#e6db74">&quot;com_ndktest_MainActivity.h&quot;</span><span style="color:#defa25"></span>
+<span style="color:#75715e">/*</span>
+<span style="color:#75715e"> * Class:     com_ndktest_MainActivity</span>
+<span style="color:#75715e"> * Method:    getStringFromNative</span>
+<span style="color:#75715e"> * Signature: ()Ljava/lang/String;</span>
+<span style="color:#75715e"> */</span>
+JNIEXPORT jstring JNICALL Java_com_ndktest_MainActivity_getStringFromNative
+<span style="color:#f8f8f2">(</span>JNIEnv <span style="color:#f8f8f2">*</span> env<span style="color:#f8f8f2">,</span> jobject obj<span style="color:#f8f8f2">) {</span>
+    <span style="color:#f92672; font-weight:bold">return</span> <span style="color:#f8f8f2">(*</span>env<span style="color:#f8f8f2">)-&gt;</span><span style="color:#25faac">NewStringUTF</span><span style="color:#f8f8f2">(</span>env<span style="color:#f8f8f2">,</span><span style="color:#e6db74">&quot;I'm comes from to Native Function!&quot;</span><span style="color:#f8f8f2">);</span>
+<span style="color:#f8f8f2">}</span>
+
+</pre>
+					<p style="text-indent: 2em;">如果编译出错，请在jni文件夹中新建一个空的<b>.c</b>文件，比如<b>utils.c</b>。在此我没有碰到错误，所以没有添加空文件</p>
+
+					<li>在app目录下的<b>build.gradle</b>中设置库文件名（生成的<b>so</b>文件名--但是我在项目中并未看到有<b>so</b>文件生成）;</li>
+					<p style="text-indent: 2em;">找到<b>defaultConfig</b>项，添加以下内容：</p>
+
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+ndk <span style="color:#f8f8f2">{</span>
+    moduleName <span style="color:#e6db74">&quot;MyJni&quot;</span>  <span style="color:#75715e">//设置库(so)文件名称  </span>
+<span style="color:#f8f8f2">}</span>
+</pre>
+					<li>加载<b>so</b>文件:</li>
+
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f92672; font-weight:bold">static</span> <span style="color:#f8f8f2">{</span>
+    System<span style="color:#f8f8f2">.</span><span style="color:#25faac">loadLibrary</span><span style="color:#f8f8f2">(</span><span style="color:#e6db74">&quot;MyJni&quot;</span><span style="color:#f8f8f2">);</span>
+<span style="color:#f8f8f2">}</span>
+</pre>
+					<li>配置布局文件和入口文件</li>
+					<p style="text-indent: 2em;">在此贴出布局的完整代码：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f92672; font-weight:bold">&lt;RelativeLayout</span> xmlns:<span style="color:#66d9ef">android</span>=<span style="color:#e6db74">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+                xmlns:<span style="color:#66d9ef">tools</span>=<span style="color:#e6db74">&quot;http://schemas.android.com/tools&quot;</span>
+                android:<span style="color:#66d9ef">layout_width</span>=<span style="color:#e6db74">&quot;match_parent&quot;</span>
+                android:<span style="color:#66d9ef">layout_height</span>=<span style="color:#e6db74">&quot;match_parent&quot;</span>
+                android:<span style="color:#66d9ef">paddingLeft</span>=<span style="color:#e6db74">&quot;&#64;dimen/activity_horizontal_margin&quot;</span>
+                android:<span style="color:#66d9ef">paddingRight</span>=<span style="color:#e6db74">&quot;&#64;dimen/activity_horizontal_margin&quot;</span>
+                android:<span style="color:#66d9ef">paddingTop</span>=<span style="color:#e6db74">&quot;&#64;dimen/activity_vertical_margin&quot;</span>
+                android:<span style="color:#66d9ef">paddingBottom</span>=<span style="color:#e6db74">&quot;&#64;dimen/activity_vertical_margin&quot;</span>
+                tools:<span style="color:#66d9ef">context</span>=<span style="color:#e6db74">&quot;.MainActivity&quot;</span><span style="color:#f92672; font-weight:bold">&gt;</span>
+
+    <span style="color:#f92672; font-weight:bold">&lt;TextView</span>
+        android:<span style="color:#66d9ef">text</span>=<span style="color:#e6db74">&quot;&#64;string/hello_world&quot;</span>
+        android:<span style="color:#66d9ef">layout_width</span>=<span style="color:#e6db74">&quot;wrap_content&quot;</span>
+        android:<span style="color:#66d9ef">layout_height</span>=<span style="color:#e6db74">&quot;wrap_content&quot;</span>
+        android:<span style="color:#66d9ef">id</span>=<span style="color:#e6db74">&quot;&#64;+id/myJni&quot;</span><span style="color:#f92672; font-weight:bold">/&gt;</span>
+
+<span style="color:#f92672; font-weight:bold">&lt;/RelativeLayout&gt;</span>
+</pre>
+					<p style="text-indent: 2em;">MainActivity的完整代码:</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';"><span style="color:#f92672; font-weight:bold">package</span> com<span style="color:#f8f8f2">.</span>ndktest<span style="color:#f8f8f2">;</span>
+
+<span style="color:#f92672; font-weight:bold">import</span> android<span style="color:#f8f8f2">.</span>app<span style="color:#f8f8f2">.</span>Activity<span style="color:#f8f8f2">;</span>
+<span style="color:#f92672; font-weight:bold">import</span> android<span style="color:#f8f8f2">.</span>os<span style="color:#f8f8f2">.</span>Bundle<span style="color:#f8f8f2">;</span>
+<span style="color:#f92672; font-weight:bold">import</span> android<span style="color:#f8f8f2">.</span>view<span style="color:#f8f8f2">.</span>Menu<span style="color:#f8f8f2">;</span>
+<span style="color:#f92672; font-weight:bold">import</span> android<span style="color:#f8f8f2">.</span>view<span style="color:#f8f8f2">.</span>MenuItem<span style="color:#f8f8f2">;</span>
+<span style="color:#f92672; font-weight:bold">import</span> android<span style="color:#f8f8f2">.</span>widget<span style="color:#f8f8f2">.</span>TextView<span style="color:#f8f8f2">;</span>
+
+<span style="color:#f92672; font-weight:bold">public class</span> MainActivity <span style="color:#f92672; font-weight:bold">extends</span> Activity <span style="color:#f8f8f2">{</span>
+    <span style="color:#f92672; font-weight:bold">private</span> TextView tv<span style="color:#f8f8f2">=</span>null<span style="color:#f8f8f2">;</span>
+    <span style="color:#95f067">&#64;Override</span>
+    <span style="color:#f92672; font-weight:bold">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#25faac">onCreate</span><span style="color:#f8f8f2">(</span>Bundle savedInstanceState<span style="color:#f8f8f2">) {</span>
+        <span style="color:#f92672; font-weight:bold">super</span><span style="color:#f8f8f2">.</span><span style="color:#25faac">onCreate</span><span style="color:#f8f8f2">(</span>savedInstanceState<span style="color:#f8f8f2">);</span>
+        <span style="color:#25faac">setContentView</span><span style="color:#f8f8f2">(</span>R<span style="color:#f8f8f2">.</span>layout<span style="color:#f8f8f2">.</span>activity_main<span style="color:#f8f8f2">);</span>
+
+        tv<span style="color:#f8f8f2">=(</span>TextView<span style="color:#f8f8f2">)</span><span style="color:#25faac">findViewById</span><span style="color:#f8f8f2">(</span>R<span style="color:#f8f8f2">.</span>id<span style="color:#f8f8f2">.</span>myJni<span style="color:#f8f8f2">);</span>
+        tv<span style="color:#f8f8f2">.</span><span style="color:#25faac">setText</span><span style="color:#f8f8f2">(</span><span style="color:#25faac">getStringFromNative</span><span style="color:#f8f8f2">());</span>
+    <span style="color:#f8f8f2">}</span>
+
+    <span style="color:#95f067">&#64;Override</span>
+    <span style="color:#f92672; font-weight:bold">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#25faac">onCreateOptionsMenu</span><span style="color:#f8f8f2">(</span>Menu menu<span style="color:#f8f8f2">) {</span>
+        <span style="color:#75715e">// Inflate the menu; this adds items to the action bar if it is present.</span>
+        <span style="color:#25faac">getMenuInflater</span><span style="color:#f8f8f2">().</span><span style="color:#25faac">inflate</span><span style="color:#f8f8f2">(</span>R<span style="color:#f8f8f2">.</span>menu<span style="color:#f8f8f2">.</span>menu_main<span style="color:#f8f8f2">,</span> menu<span style="color:#f8f8f2">);</span>
+        <span style="color:#f92672; font-weight:bold">return</span> true<span style="color:#f8f8f2">;</span>
+    <span style="color:#f8f8f2">}</span>
+
+    <span style="color:#95f067">&#64;Override</span>
+    <span style="color:#f92672; font-weight:bold">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#25faac">onOptionsItemSelected</span><span style="color:#f8f8f2">(</span>MenuItem item<span style="color:#f8f8f2">) {</span>
+        <span style="color:#75715e">// Handle action bar item clicks here. The action bar will</span>
+        <span style="color:#75715e">// automatically handle clicks on the Home/Up button, so long</span>
+        <span style="color:#75715e">// as you specify a parent activity in AndroidManifest.xml.</span>
+        <span style="color:#66d9ef">int</span> id <span style="color:#f8f8f2">=</span> item<span style="color:#f8f8f2">.</span><span style="color:#25faac">getItemId</span><span style="color:#f8f8f2">();</span>
+
+        <span style="color:#75715e">//noinspection SimplifiableIfStatement</span>
+        <span style="color:#f92672; font-weight:bold">if</span> <span style="color:#f8f8f2">(</span>id <span style="color:#f8f8f2">==</span> R<span style="color:#f8f8f2">.</span>id<span style="color:#f8f8f2">.</span>action_settings<span style="color:#f8f8f2">) {</span>
+            <span style="color:#f92672; font-weight:bold">return</span> true<span style="color:#f8f8f2">;</span>
+        <span style="color:#f8f8f2">}</span>
+
+        <span style="color:#f92672; font-weight:bold">return super</span><span style="color:#f8f8f2">.</span><span style="color:#25faac">onOptionsItemSelected</span><span style="color:#f8f8f2">(</span>item<span style="color:#f8f8f2">);</span>
+    <span style="color:#f8f8f2">}</span>
+    <span style="color:#f92672; font-weight:bold">public native</span> String <span style="color:#25faac">getStringFromNative</span><span style="color:#f8f8f2">();</span>
+
+    <span style="color:#f92672; font-weight:bold">static</span> <span style="color:#f8f8f2">{</span>
+        System<span style="color:#f8f8f2">.</span><span style="color:#25faac">loadLibrary</span><span style="color:#f8f8f2">(</span><span style="color:#e6db74">&quot;MyJni&quot;</span><span style="color:#f8f8f2">);</span>
+    <span style="color:#f8f8f2">}</span>
+<span style="color:#f8f8f2">}</span>
+</pre>
+					<h2>运行结果</h2>
+
+					<p style="text-indent: 2em;">编译运行可以看到从native方法传过来的值：</p>
+
+					<img src="../images/ndktest.png" />
+					<br />
+					<br />
+					<h4>参考自:<a href="http://blog.csdn.net/rznice/article/details/42295215">CSDN Blog</a></h4>
+					<br />
+
+					<!--  share group -->
+					<div id="shared">
+						<ul id="nav">
+							<li><a class="fly" href="###">分享到...</a>
+								<ul class="dd">
+
+									<li>
+										<a style="width: 110px;" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://i3.tietuku.com/03d5a102bb318bda.png&#39;, &#39;推荐iBrucekong的文章《Git 中级用户的25个提示》（ 分享自ibrucekong.github.io ）&#39;,&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"
+										data-name="weibo"><img src="http://i3.tietuku.com/3a35e6209e408558.png" style="width: 16px;height: 16px;">&nbsp;分享到微博</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 iBrucekong 的文章《Git 中级用户的25个提示》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"
+										data-name="qzone"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/qzone.png" style="width: 16px;height: 16px;">&nbsp;分享到QQ空间</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://widget.renren.com/dialog/share?resourceUrl=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;description=&#39;+e(&#39;推荐 iBrucekong 的文章《Git 中级用户的25个提示》&#39;)+&#39;&amp;title=&#39;+e(&#39;Git 中级用户的25个提示&#39;),x=function(){if(!window.open(r,&#39;renren&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"
+										data-name="renren"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/renren.png" style="width: 16px;height: 16px;">&nbsp;分享到人人网</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;title=&#39;+e(&#39;Git 中级用户的25个提示&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"
+										data-name="douban"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/douban.png" style="width: 16px;height: 16px;" align="center">&nbsp;分享到豆瓣</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+					</div>
+					<!--判断是不是移动端-->
+					<script type="text/javascript">var browser = {
+	version: function() {
+		var u = navigator.userAgent,
+			app = navigator.appVersion;
+		return {
+			trident: u.indexOf('Tredent') > -1, //IE内核
+			presto: u.indexOf('Presto') > -1, //opera内核
+			webkit: u.indexOf('AppleWebKit') > -1, //苹果 谷歌内核
+			gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+			mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+			ios: !!u.match(/\(i[^;]+;(U;)? CPU.+Mac OS X/), //ios终端
+			android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //Android终端或UC浏览器
+			iPhone: u.indexOf('iPhone') > -1, //是否是iPhone
+			iPad: u.indexOf('iPad') > -1, //是否是ipad
+			webApp: u.indexOf('Safari') > -1, //是否是web应用，没有头部和底部
+		};
+	}(),
+	language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.version.mobile == true) {
+	var t = document.getElementById('shared');
+	t.style.display = "none";
+} else {
+	var t = document.getElementById('shared');
+	t.style.display = "block";
+}</script>
+					<br />
+					<div class="comments">
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ibrucekong'; // required: replace example with your forum shortname
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+	var dsq = document.createElement('script');
+	dsq.type = 'text/javascript';
+	dsq.async = true;
+	dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script>
+						<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+						<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+				</div>
+			</div>
+		</article>
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+						<ul class="list-inline text-center">
+							<li>
+								<a href="https://twitter.com/ibrucekong">
+									<span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+								</a>
+							</li>
+							<li>
+								<a href="https://github.com/ibrucekong">
+									<span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+								</a>
+							</li>
+							<li>
+								<a href="http://git.oschina.net/bruce0325">
+									<span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-stack-1x fa-inverse"><b>码</b></i>
+                                </span>
+								</a>
+							</li>
+						</ul>
+						<p class="copyright text-muted">Copyright &copy; <a class="copyright text-muted" style="text-decoration: none;" href="http://ibrucekung.github.io">ibrucekung.github.io</a> 2016 All Rights Reserved
+							<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1259595335'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259595335%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- jQuery -->
+		<script src="../js/jquery.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="../js/bootstrap.min.js"></script>
+
+		<!-- Custom Theme JavaScript -->
+		<script src="../js/clean-blog.min.js"></script>
+
+	</body>
+
+</html>

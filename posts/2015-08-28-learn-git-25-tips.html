@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	
+    <title>Git终极用户的25个提示 | Bruce Kung</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="../css/comment.css" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Bruce Kung</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="http://ibrucekong.github.io">Old Blog</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ibrucekung/ibrucekung.github.io">Fork</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('../img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Git 中级用户的25个提示</h1>
+                        <h2 class="subheading">Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</h2>
+                        <span class="meta">Posted by <a href="#">ibrucekung</a> on August 28, 2015</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+				<section class="inner">
+					<p>我使用 Git 大约已经有18个月时间，自认为能很好地驾驭它了。但是当我们请到 GitHub 的 Scott Chacon 来到 LVS 公司（一个博彩/游戏软件供应商/开发商）做专场培训时，我在第一天就学到了大量的东西。</p>
+					<p>由于有些人总是对使用 Git 自我感觉良好，因此，我想分享一些我从社区获取到的 Git 精品，这样就可能会帮助那些人无需浪费大量研究时间而直接找到答案。</p>
+					<div style="text-align: center;">
+						<img style="max-width: 80%;" src="http://i3.tietuku.com/03d5a102bb318bda.png">
+						<br>
+					</div>
+					<h4>基本提示</h4>
+					<p><strong>1. 安装之后第一步</strong></p>
+					<p>安装 Git 之后，你要做的第一件事情就是去配置你的名字和邮箱，因为每一次提交都需要这些信息：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">$ <span style="color:#95f067">git config</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">global user</span>.<span style="color:#95f067">name</span> <span style="color:#e6db74">&quot;Some One&quot;</span>
+$ <span style="color:#95f067">git config</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">global user</span>.<span style="color:#95f067">email</span> <span style="color:#e6db74">&quot;someone&#64;gmail.com&quot;</span>
+</pre>
+					<p><strong>2. Git 是以指针为基础</strong></p>
+					<p>存储在 git 中的所有东西都包含在一个文件中。当你提交的时候，git 会创建一个包含提交消息和相关数据的文件（名称、邮件、日期/时间、上一次提交等等），并将其链接到一个树形文件。树形文件包含一个对象列表或者其它树。对象或二进制大数据对象（<a href="http://en.wikipedia.org/wiki/Binary_large_object" target="_blank">BLOB</a>）是提交的真正内容（一个文件，如果你愿意，虽然文件名没有存储在对象中，但会存储在树中）。所有这些文件都以对象的
+						SHA-1 哈希为文件名进行存储。</p>
+					<p>分支和标签只是一些文件，这些文件包含（基本上）一个指向提交的 SHA-1 哈希值。使用这些引用在灵活性和速度上均有大幅提升，创建一个新的分支就和创建一个文件一样简单，只是这个文件带有分支名称和一个包含指向提交（你从这个提交建立分支）的SHA-1哈希值。当然，当你使用 Git 命令行工具（或一个图形用户界面）时，你永远也不会这么做，但它就是这么简单。</p>
+					<p>你可能已经听说过对 HEAD 的引用。它只是一个包含 SHA-1 引用的文件，这个引用指向你当前的提交。如果你正在解决一个合并冲突问题，查看一下 HEAD，你会发现，它与一个特定的分支或分支上的特定点无关，只和你现在的位置有关。</p>
+					<p>所有的分支指针保存在 .git/refs/heads 目录下，HEAD 在 .git/HEAD 目录下，标签在 .git/refs/tags 目录下 - 你可以随意看看。</p>
+					<p><strong>3. 两个 Parents - 当然！</strong></p>
+					<p>当在日志文件中查看一个合并提交的消息时，你会看到两个 parents（与正常提交相比）。第一个parent 是你所在的分支，第二个 parents 是你并入的分支。</p>
+					<p><strong>4. 合并冲突</strong></p>
+					<p>到目前为止，我确信你一定有一个合并冲突需要解决。通常情况下，通过编辑该文件，删除文件中的&lt;&lt;&lt;&lt;, ====, &gt;&gt;&gt;&gt;标记，然后保存你需要保留的代码就可以了。有时候，在任何变更之前查看代码都是一个值得推荐的做法，比如，在你对两个有冲突的分支采取行动之前。这是又一个命令：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">$ <span style="color:#95f067">git diff</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">merge</span>
+<span style="color:#95f067">diff</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">cc dummy</span>.<span style="color:#95f067">rb</span>  
+<span style="color:#95f067">index</span> <span style="color:#ae81ff">5175</span><span style="color:#95f067">dde</span>,<span style="color:#ae81ff">0</span><span style="color:#95f067">c65895</span>.<span style="color:#ae81ff">.4</span><span style="color:#95f067">a00477</span>  
+<span style="color:#f8f8f2">---</span> <span style="color:#95f067">a</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">dummy</span>.<span style="color:#95f067">rb</span>
++++ <span style="color:#95f067">b</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">dummy</span>.<span style="color:#95f067">rb</span>
+&#64;&#64;&#64; <span style="color:#f8f8f2">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span> <span style="color:#f8f8f2">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span> +<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span> &#64;&#64;&#64;
+  <span style="color:#95f067">class MyFoo</span>
+    <span style="color:#95f067">def say</span>
+<span style="color:#f8f8f2">-</span>     <span style="color:#95f067">puts</span> <span style="color:#e6db74">&quot;Bonjour&quot;</span>
+ <span style="color:#f8f8f2">-</span>    <span style="color:#95f067">puts</span> <span style="color:#e6db74">&quot;Hello world&quot;</span>
+++    <span style="color:#95f067">puts</span> <span style="color:#e6db74">&quot;Annyong Haseyo&quot;</span>
+    <span style="color:#95f067">end</span>
+  <span style="color:#95f067">end</span>
+</pre>
+					<p>如果文件是二进制的，文件比较就不是那么容易了...你通常要做的是尝试每个版本的二进制文件，并决定使用哪一个（或者在二进制文件编辑器手动复制部分内容）。从一个特定分支下 pull 一个文件副本（如果你要合并主分支和分支132的话）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git checkout master flash</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">fla</span> # <span style="color:#95f067">or</span>...
+$ <span style="color:#95f067">git checkout feature132 flash</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">fla</span>
+$ # <span style="color:#95f067">Then</span>...
+$ <span style="color:#95f067">git add flash</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">fla</span>
+</pre>
+					<p>另一种方法是从 git 中查看这个文件 - 你能够以其他文件名的方式进行查看，然后将正确的文件（当你确定它是哪一个时）复制到正常的文件名中：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git show master</span>:<span style="color:#95f067">flash</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">fla</span> &gt; <span style="color:#95f067">master-foo</span>.<span style="color:#95f067">fla</span>
+$ <span style="color:#95f067">git show feature132</span>:<span style="color:#95f067">flash</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">fla</span> &gt; <span style="color:#95f067">feature132-foo</span>.<span style="color:#95f067">fla</span>
+$ # <span style="color:#95f067">Check out master-foo</span>.<span style="color:#95f067">fla and feature132-foo</span>.<span style="color:#95f067">fla</span>
+$ # <span style="color:#95f067">Let</span><span style="color:#95f067">'s say we decide that feature132'</span><span style="color:#95f067">s is correct</span>
+$ <span style="color:#95f067">rm flash</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">fla</span>
+$ <span style="color:#95f067">mv feature132-foo</span>.<span style="color:#95f067">fla flash</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">fla</span>
+$ <span style="color:#95f067">rm master-foo</span>.<span style="color:#95f067">fla</span>
+$ <span style="color:#95f067">git add flash</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">fla</span>
+</pre>
+					<p>更新：感谢 Carl 在早先的的博客评论中给与的提醒，你实际上能使用 “git checkout —ours flash/foo.fla” 和 “git checkout —theirs flash/foo.fla” 检出一个特定的版本而不需要记住你要合并到哪一个分支。我个人更喜欢更明确些，但是你可以随便选择...</p>
+					<p>在解决了合并冲突问题之后（就像我上面所做的那样），请记得将这个文件添加给索引。</p>
+					<h4>服务器、分支和标签</h4>
+					<p><strong>5. 远程服务器</strong></p>
+					<p>Git 最强大的功能之一是可以有一个以上的远程服务器（另一个事实，你总是可以运行一个本地仓库）。你不一定总是需要写访问权限，你可以从多个服务器中读取（用于合并），然后写到另一个服务器中。添加一个远程服务器很简单：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git remote add john git</span>&#64;<span style="color:#95f067">github</span>.<span style="color:#95f067">com</span>:<span style="color:#95f067">johnsomeone</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">someproject</span>.<span style="color:#95f067">git</span>
+</pre>
+					<p>如果你想查看远程服务器的相关信息，你可以这样做：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+# <span style="color:#95f067">shows URLs of each remote server</span>
+$ <span style="color:#95f067">git remote</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">v</span> 
+
+# <span style="color:#95f067">gives more details about each</span>
+$ <span style="color:#95f067">git remote show name</span>
+</pre>
+					<p>你可以查看本地分支和远程分支之间的差别：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git diff master</span>..<span style="color:#95f067">john</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">master</span>
+</pre>
+					<p>你也能查看不在远程分支上的 HEAD 的变化：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git log remote</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">branch</span>..
+# <span style="color:#95f067">Note</span>: <span style="color:#95f067">no final refspec after</span> ..
+</pre>
+					<p><strong>6. 标签</strong></p>
+					<p>在 Git 中存在两种类型的标签 - 一个轻量级标签和一个注解标签。记着第二个提示中说过 Git 是基于指针的，二者的区别很简单。一个轻量级标签无非是一个指向提交的具名指针。你可以改变它并指向另一个提交。一个注解标签是一个指向标签对象的具名指针，这个标签对象拥有自己的消息和历史。如果有需要，标签对象的消息可以采用 GPG 加密签名。</p>
+					<p>创建两种类型的标签其实很容易（只是一个命令行选项的差异）</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git tag to-be-tested</span>
+$ <span style="color:#95f067">git tag</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">a v1</span>.1<span style="color:#ae81ff">.0</span> # <span style="color:#95f067">Prompts for a tag message</span>
+</pre>
+					<p><strong>7. 创建分支</strong></p>
+					<p>在 Git 中创建分支非常容易（闪电般的速度，因为它仅仅需要创建一个不到100字节的文件）。创建一个新分支并切换过去的通用写法是：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git branch feature132</span>
+$ <span style="color:#95f067">git checkout feature132</span>
+</pre>
+					<p>当然，如果你知道你要马上切换过去，你可以使用一条命令就能做到：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git checkout</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">b feature132</span>
+</pre>
+					<p>如果你要重命名一个本地分支，同样是件容易的事（长命令方式用来显示具体执行过程）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git checkout</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">b twitter-experiment feature132</span>
+$ <span style="color:#95f067">git branch</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">d feature132</span>
+</pre>
+					<p>更新：或者你（就像 Brian Palmer 在博客文章评论中指出的那样）只使用 “git branch” 和 -m 选项就可以一步到位：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git branch</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">m twitter-experiment</span>
+$ <span style="color:#95f067">git branch</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">m feature132 twitter-experiment</span>
+</pre>
+					<p><strong>8. 合并分支</strong></p>
+					<p>在将来某个时候，你想要合并你的变更。有两种方式可以实现：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git checkout master</span>
+$ <span style="color:#95f067">git merge feature83</span> # <span style="color:#95f067">Or</span>...
+$ <span style="color:#95f067">git rebase feature83</span>
+</pre>
+					<p>merge 和 rebase 的区别在于，merge 试图解决变更而且创建一个融合后的新提交，而 rebase 则试图把自你上次在其他分支上的变化，在另一个分支的 HAED 上重现。但是，在你向远程服务器推送一个分支之后，不要进行 rebase 操作 - 这会引发混淆/问题。</p>
+					<p>如果你不能确定哪些分支仍然有独立的工作在进行 - 以便你能知道你需要合并哪一个分支以及删除哪些分支，git branch 命令有两个选项可以帮助实现这一点：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+# <span style="color:#95f067">Shows branches that are all merged in to your current branch</span>
+$ <span style="color:#95f067">git branch</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">merged</span>
+
+# <span style="color:#95f067">Shows branches that are not merged in to your current branch</span>
+$ <span style="color:#95f067">git branch</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">no-merged</span>
+</pre>
+					<p><strong>9. 远程分支</strong></p>
+					<p>如果你有一个本地分支，你想让它出现在远程服务器上，你可以使用一个推送命令：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git push origin twitter-experiment</span>:<span style="color:#95f067">refs</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">heads</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">twitter-experiment</span>
+# <span style="color:#95f067">Where origin is our server name and twitter-experiment is the branch</span>
+</pre>
+					<p>更新：感谢 Erlend 在博客文章评论中提到的 - 这实际上和 git push origin twitter-experiment 达到的效果的一样，但是通过使用全部语法，你能看到你实际上在两端使用了不同的名字（你的本地名字可能是 add-ssl-support，而远程名字可能是 issue-1723）。</p>
+					<p>如果你想删除一个远程服务器上的分支（请注意分支名称之前的冒号）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git push origin</span> :<span style="color:#95f067">twitter-experiment</span>
+</pre>
+					<p>如果你想显示所有远程分支的状态，你能像这样查看它们：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git remote show origin</span>
+</pre>
+					<p>这可能会列出一些服务器上曾经有过但现在已不存在的分支。如果碰到这种情况，你可以很轻松地使用如下命令从本地检出并将其删除：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git remote prune</span>
+</pre>
+					<p>最后，如果你有一个远程分支，你想在本地进行跟踪它，通常的做法是：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git branch</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">track myfeature origin</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">myfeature</span>
+$ <span style="color:#95f067">git checkout myfeature</span>
+</pre>
+					<p>然而，如果你使用 -b 标识符去检出的话，新版的 Git 会自动建立跟踪：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git checkout</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">b myfeature origin</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">myfeature</span>
+</pre>
+					<h4>在临时存放区、索引和文件系统中保存内容</h4>
+					<p><strong>10. 临时存放（Stashing）</strong></p>
+					<p>在Git中，你可以把当前的工作状态储存在一个临时的存储区域堆栈，然后重新加以利用。简单的案例如下：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git stash</span> # <span style="color:#95f067">Do something</span>...
+$ <span style="color:#95f067">git stash pop</span>
+</pre>
+					<p>很多人推荐使用 git stash apply 来代替 “pop”，然而如果你真这么做的话，你最终得到一个长长的毫无用处的储藏清单。如果对它进行清理，“pop” 只会把它从堆栈中删除。如果你已经使用了 git stash apply ，你可以使用如下命令从堆栈中删除最后一项：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git stash drop</span>
+</pre>
+					<p>Git 会基于当前的提交消息自动创建一个注释信息。如果你更喜欢使用一个自定义的消息（因为它可能和之前的提交无关）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git stash save</span> <span style="color:#e6db74">&quot;My stash message&quot;</span>
+</pre>
+					<p>如果你想从你的列表中（不必是最后一个）对一个特定的 stash 加以利用，你可以列出它们并像这样来使用它：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git stash list</span>
+  <span style="color:#95f067">stash</span>&#64;<span style="color:#f8f8f2">{</span><span style="color:#ae81ff">0</span><span style="color:#f8f8f2">}</span>: <span style="color:#95f067">On master</span>: <span style="color:#95f067">Changed to German</span>
+  <span style="color:#95f067">stash</span>&#64;<span style="color:#f8f8f2">{</span><span style="color:#ae81ff">1</span><span style="color:#f8f8f2">}</span>: <span style="color:#95f067">On master</span>: <span style="color:#95f067">Language is now Italian</span>
+$ <span style="color:#95f067">git stash apply stash</span>&#64;<span style="color:#f8f8f2">{</span><span style="color:#ae81ff">1</span><span style="color:#f8f8f2">}</span>
+</pre>
+					<p><strong>11. 交互式添加</strong></p>
+					<p>在 Subversion 的世界里，你修改文件然后只是提交有变化的文件。而在 Git 的世界里，你在提交某些文件甚至某些补丁上有更多的控制权。为了提交某些文件或者文件的某些部分，你必须进入交互模式。</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git add</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">i</span>
+           <span style="color:#95f067">staged     unstaged path</span>
+
+
+<span style="color:#f8f8f2">***</span> <span style="color:#95f067">Commands</span> <span style="color:#f8f8f2">***</span>
+  <span style="color:#ae81ff">1</span>: <span style="color:#95f067">status</span>      <span style="color:#ae81ff">2</span>: <span style="color:#95f067">update</span>   <span style="color:#ae81ff">3</span>: <span style="color:#95f067">revert</span>   <span style="color:#ae81ff">4</span>: <span style="color:#95f067">add untracked</span>
+  <span style="color:#ae81ff">5</span>: <span style="color:#95f067">patch</span>      <span style="color:#ae81ff">6</span>: <span style="color:#95f067">diff</span>     <span style="color:#ae81ff">7</span>: <span style="color:#95f067">quit</span>     <span style="color:#ae81ff">8</span>: <span style="color:#95f067">help</span>
+<span style="color:#95f067">What now</span>&gt;
+</pre>
+					<p>这会让你进入一个基于交互式命令的菜单模式。你可以使用命令的数字符号或者加亮字符（如果你开启颜色高亮显示功能的话）进入对应模式，然后就是正常输入文件数的问题了（你可以使用像1或1-4或2,4,7这样的格式）。</p>
+					<p>如果你想进入修补模式（交互模式下输入‘p’或‘5’ ），你也可以直接进入那个模式：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git add</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">p</span>    
+<span style="color:#95f067">diff</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">git a</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">dummy</span>.<span style="color:#95f067">rb b</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">dummy</span>.<span style="color:#95f067">rb</span>  
+<span style="color:#95f067">index</span> <span style="color:#ae81ff">4</span><span style="color:#95f067">a00477</span>..<span style="color:#95f067">f856fb0</span> <span style="color:#ae81ff">100644</span>  
+<span style="color:#f8f8f2">---</span> <span style="color:#95f067">a</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">dummy</span>.<span style="color:#95f067">rb</span>
++++ <span style="color:#95f067">b</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">dummy</span>.<span style="color:#95f067">rb</span>
+&#64;&#64; <span style="color:#f8f8f2">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span> +<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span> &#64;&#64;
+ <span style="color:#95f067">class MyFoo</span>
+   <span style="color:#95f067">def say</span>
+<span style="color:#f8f8f2">-</span>    <span style="color:#95f067">puts</span> <span style="color:#e6db74">&quot;Annyong Haseyo&quot;</span>
++    <span style="color:#95f067">puts</span> <span style="color:#e6db74">&quot;Guten Tag&quot;</span>
+   <span style="color:#95f067">end</span>
+ <span style="color:#95f067">end</span>
+<span style="color:#95f067">Stage this hunk</span> <span style="color:#f8f8f2">[</span><span style="color:#95f067">y</span>,<span style="color:#95f067">n</span>,<span style="color:#95f067">q</span>,<span style="color:#95f067">a</span>,<span style="color:#95f067">d</span>,<span style="color:#f8f8f2">/</span>,<span style="color:#95f067">e</span>,<span style="color:#66d9ef">?]?</span>
+</pre>
+					<p>如你所见，在底部你得到一系列选项为选择去添加文件改变的部分，这个文件的所有变化等等。使用‘?’ 命令可以了解选不同选项的解释。</p>
+					<p><strong>12. 存储/从文件系统检索</strong></p>
+					<p>一些项目（例如 Git 项目自身）直接在 Git 文件系统中存储额外的文件而不必是检入文件。</p>
+					<p>让我们开始在 Git 中存储一个任意文件：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">echo</span> <span style="color:#e6db74">&quot;Foo&quot;</span> | <span style="color:#95f067">git hash-object</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">w</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">stdin</span>
+<span style="color:#ae81ff">51</span><span style="color:#95f067">fc03a9bb365fae74fd2bf66517b30bf48020cb</span>
+</pre>
+					<p>此时，该文件对象已在数据库中，但是如果你不设置（一些东西）指向那个文件对象，它将被作为垃圾而回收。最简单的方法是标记它：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git tag myfile</span> <span style="color:#95f067">51fc03a9bb365fae74fd2bf66517b30bf48020cb</span>
+</pre>
+					<p>既然在这里我们已经标记了 myfile。当我们需要获取该文件时，我们可以这样做：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git cat-file blob myfile</span>
+</pre>
+					<p>程序员可能经常用到的工具文件（密码、GPG 密钥、等等），不需要每次都检出到磁盘上（特别是在生产环境下），这种方法非常有效。</p>
+					<h4>日志记录</h4>
+					<p><strong>13. 查看日志</strong></p>
+					<p>如果你不使用‘git log’查看最近提交历史的话，你就不能长时间顺利地使用 Git。但是，也存在一些如何更好使用它的建议。例如，你可以查看每次提交中改变的一个补丁：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git log</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">p</span>
+</pre>
+					<p>或者你可以只是查看一个哪些文件有所更改的概述：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git log</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">stat</span>
+</pre>
+					<p>你可以在一行中设置一个不错的别名，用于显示简短的提交和漂亮的带有消息的分支图（像 gitk，但在命令行上）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ git config <span style="color:#f8f8f2">--</span>global alias<span style="color:#f8f8f2">.</span>lol <span style="color:#e6db74">&quot;log --pretty=oneline --abbrev-commit --graph --decorate&quot;</span>
+$ git lol
+<span style="color:#defa25">* 4d2409a (master) Oops, meant that to be in Korean</span>
+<span style="color:#defa25">* 169b845 Hello world</span>
+</pre>
+					<p><strong>14. 检索日志</strong></p>
+					<p>如果你想在日志中查询一个特定作者，你可以这样指定：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f92672; font-weight:bold">$ git log --author</span><span style="color:#f8f8f2">=</span><span style="color:#95f067">Andy</span>
+</pre>
+					<p>更新：感谢 Johannes 的评论，我终于化解了一部分困惑。</p>
+					<p>或者如果你有一个搜索词出现在提交消息中：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f92672; font-weight:bold">$ git log --grep</span><span style="color:#f8f8f2">=</span><span style="color:#e6db74">&quot;Something in the message&quot;</span>
+</pre>
+					<p>还有一个功能更强大的叫 pickaxe 的命令，它可以查找条目用来添加或删除一个特定的内容（也就是，当它第一次出现或被删除的时候）。这样你就可以知道何时增加了一行（但是如果那一行中的字符随后被改变，你将无从得知）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git log</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">S</span> <span style="color:#e6db74">&quot;TODO: Check for admin status&quot;</span>
+</pre>
+					<p>如果你改变一个特定的文件会怎么样呢，例如 lib/foo.rb</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git log lib</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">rb</span>
+</pre>
+					<p>比如说你有一个 feature/132 分支和一个 feature/145 分支，你想查看在这些分支但却不在主分支上的提交（备注：^ 代表非）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git log feature</span><span style="color:#f8f8f2">/</span><span style="color:#ae81ff">132</span> <span style="color:#95f067">feature</span><span style="color:#f8f8f2">/</span><span style="color:#ae81ff">145</span> ^<span style="color:#95f067">master</span>
+</pre>
+					<p>你也可以使用 ActiveSupport 风格的日期缩小日期范围：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f92672; font-weight:bold">$ git log --since</span><span style="color:#f8f8f2">=</span><span style="color:#ae81ff">2</span>.<span style="color:#95f067">months</span>.<span style="color:#95f067">ago</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">until</span><span style="color:#f8f8f2">=</span><span style="color:#ae81ff">1</span>.<span style="color:#95f067">day</span>.<span style="color:#95f067">ago</span>
+</pre>
+					<p>它默认使用 OR 模式来组合查询，但是你也可以很轻松地改为 AND 模式（如果你的查询项不止一个的话）</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f92672; font-weight:bold">$ git log --since</span><span style="color:#f8f8f2">=</span><span style="color:#ae81ff">2</span>.<span style="color:#95f067">months</span>.<span style="color:#95f067">ago</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">until</span><span style="color:#f8f8f2">=</span><span style="color:#ae81ff">1</span>.<span style="color:#95f067">day</span>.<span style="color:#95f067">ago</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">author</span><span style="color:#f8f8f2">=</span><span style="color:#95f067">andy</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">S</span> <span style="color:#e6db74">&quot;something&quot;</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">all-match</span>
+</pre>
+					<p><strong>15. 选择查看/修改的版本</strong></p>
+					<p>当引用一个修订版本时，你有许多选项可以选择，当然，这取决于你对此功能的了解程度：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git show</span> <span style="color:#ae81ff">12</span><span style="color:#95f067">a86bc38</span> # <span style="color:#95f067">By revision</span>
+$ <span style="color:#95f067">git show v1</span>.0<span style="color:#ae81ff">.1</span> # <span style="color:#95f067">By tag</span>
+$ <span style="color:#95f067">git show feature132</span> # <span style="color:#95f067">By branch name</span>
+$ <span style="color:#95f067">git show</span> <span style="color:#ae81ff">12</span><span style="color:#95f067">a86bc38</span>^ # <span style="color:#95f067">Parent of a commit</span>
+$ <span style="color:#95f067">git show</span> <span style="color:#ae81ff">12</span><span style="color:#95f067">a86bc38</span>~<span style="color:#ae81ff">2</span> # <span style="color:#95f067">Grandparent of a commit</span>
+$ <span style="color:#95f067">git show feature132</span>&#64;<span style="color:#f8f8f2">{</span><span style="color:#95f067">yesterday</span><span style="color:#f8f8f2">}</span> # <span style="color:#95f067">Time relative</span>
+$ <span style="color:#95f067">git show feature132</span>&#64;<span style="color:#f8f8f2">{</span><span style="color:#ae81ff">2</span>.<span style="color:#95f067">hours</span>.<span style="color:#95f067">ago</span><span style="color:#f8f8f2">}</span> # <span style="color:#95f067">Time relative</span>
+</pre>
+					<p>请注意，和上一节有所不同，在行尾的脱字符表示提交的 parent - 行首的脱字符则表示不在这个分支上。</p>
+					<p><strong>16. 选择一个范围</strong></p>
+					<p>最简单的方法是这样来用：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git log origin</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">master</span>..<span style="color:#95f067">new</span>
+# <span style="color:#f8f8f2">[</span><span style="color:#95f067">old</span><span style="color:#f8f8f2">]</span>..<span style="color:#f8f8f2">[</span><span style="color:#95f067">new</span><span style="color:#f8f8f2">] -</span> <span style="color:#95f067">everything you haven</span><span style="color:#e6db74">'t pushed yet</span>
+</pre>
+					<p>你也可以删除 [new]，这将使用当前的 HEAD。</p>
+					<h4>时间回退和错误修复</h4>
+					<p><strong>17. 重置更改</strong></p>
+					<p>如果你还没有提交一个更改，你可以很容易地重置它：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git reset HEAD lib</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">rb</span>
+</pre>
+					<p>通常使用‘unstage’作为别名比较好，因为它不是那么显而易见。</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git config</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">global alias</span>.<span style="color:#95f067">unstage</span> <span style="color:#e6db74">&quot;reset HEAD&quot;</span>
+$ <span style="color:#95f067">git unstage lib</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">foo</span>.<span style="color:#95f067">rb</span>
+</pre>
+					<p>如果你已经提交了文件，你可以做两件事情 - 如果是最后一次提交，你可以这样来修改：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git commit</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">amend</span>
+</pre>
+					<p>这将回滚到最后一次提交，让你的工作副本回到变化存储在暂存区的状态，你可以编辑提交消息准备下一次提交。</p>
+					<p>如果你的提交不止一次，并且只想完全回滚它们，你可以重置分支回到之前的时间点。</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git checkout feature132</span>
+$ <span style="color:#95f067">git reset</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">hard HEAD</span>~<span style="color:#ae81ff">2</span>
+</pre>
+					<p>如果你真的想把分支指向一个完全不同的 SHA-1（也许你把一个分支的 HEAD 指向另一个分支，或者进一步提交），你可以按照以下方式去做：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git checkout FOO</span>
+$ <span style="color:#95f067">git reset</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">hard SHA</span>
+</pre>
+					<p>实际上还有一种更便捷的方式（因为它不会先将你的工作副本变回最初 FOO 状态，然后再指向 SHA）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git update-ref refs</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">heads</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">FOO SHA</span>
+</pre>
+					<p><strong>18. 提交到错误的分支</strong></p>
+					<p>好吧，让我们假设你提交到主分支，但应该已经创建了一个叫做 experimental 的主题分支。为了移除这些变化，你可以在当前点创建一个分支，回退 HEAD，然后检出新的分支：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git branch experimental</span>   # <span style="color:#95f067">Creates a pointer to the current master state</span>
+$ <span style="color:#95f067">git reset</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">hard master</span>~<span style="color:#ae81ff">3</span> # <span style="color:#95f067">Moves the master branch pointer back to</span> <span style="color:#ae81ff">3</span> <span style="color:#95f067">revisions ago</span>
+$ <span style="color:#95f067">git checkout experimental</span>
+</pre>
+					<p>如果你已经在一个分支的一个分支的一个分支等上面做了些变更，这将会更复杂。然后你需要做的就是在这个分支上将其变更 rebase 到另一个的地方：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git branch newtopic STARTPOINT</span>
+$ <span style="color:#95f067">git rebase oldtopic</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">onto newtopic</span>
+</pre>
+					<p><strong>19. 交互式 rebasing</strong></p>
+					<p>这是一个很酷的特性，我之前已看过演示，但当时没有真正搞明白，现在来看其实很简单。比方说，你已做了3次提交，但是你想对它们进行重新排序或者编辑（或者合并它们）：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git rebase</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">i master</span>~<span style="color:#ae81ff">3</span>
+</pre>
+					<p>然后你将编辑器打开。你所要做的就是修改 “pick/squash/edit 的指令来进行如何提交，然后保存/退出。在编辑之后，你可以使用 <code style="background: #666666;padding: 0 3px;">git rebase —continue</code> 让你的每一个指令一个一个进行。</p>
+					<p>如果你选择编辑一个文件，这会让你停留在你提交时的状态，因此你需要使用 git commit —amend 对它进行编辑。</p>
+					<p>备注：在 REBASE 过程中不要进行提交工作 - 只能添加然后使用 —continue, —skip or —abort 选项。 </p>
+					<p><strong>20. 清理</strong></p>
+					<p>如果你已经提交了一些内容到你的分支中（也许你是从SVN中的旧代码库导入的），你想从历史中删除掉所有的已提交内容：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git filter-branch</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">tree-filter</span> <span style="color:#e6db74">'rm -f *.class'</span> <span style="color:#95f067">HEAD</span>
+</pre>
+					<p>如果你已经向远程服务器推送过代码，但自那之后提交的都是一些垃圾，在推送之前你可以在本地系统上执行这样的操作：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git filter-branch</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">tree-filter</span> <span style="color:#e6db74">'rm -f *.class'</span> <span style="color:#95f067">origin</span><span style="color:#f8f8f2">/</span><span style="color:#95f067">master</span>..<span style="color:#95f067">HEAD</span>
+</pre>
+					<h4>各种各样的提示</h4>
+					<p><strong>21. 之前你看过的引用</strong></p>
+					<p>如果你知道你之前已经查看过一个 SHA-1，但是你已经做了一些重置/回退工作，你可以使用 reflog 命令去查看你最近看过的 SHA-1：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git reflog</span>
+$ <span style="color:#95f067">git log</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">g</span> # <span style="color:#95f067">Same as above</span>, <span style="color:#95f067">but shows in</span> <span style="color:#e6db74">'log'</span> <span style="color:#95f067">format</span>
+</pre>
+					<p><strong>22. 分支命名</strong></p>
+					<p>一个可爱的小提示 - 请记住，分支的名字并不局限于 a-z 和 0-9 这些字符。名字中可以使用 / 和 . 来伪装命名空间或者版本号，例如：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ # <span style="color:#95f067">Generate a changelog of Release</span> <span style="color:#ae81ff">132</span>
+$ <span style="color:#95f067">git shortlog release</span><span style="color:#f8f8f2">/</span><span style="color:#ae81ff">132</span> ^<span style="color:#95f067">release</span><span style="color:#f8f8f2">/</span><span style="color:#ae81ff">131</span>
+$ # <span style="color:#95f067">Tag this as v1</span>.0<span style="color:#ae81ff">.1</span>
+$ <span style="color:#95f067">git tag v1</span>.0<span style="color:#ae81ff">.1</span> <span style="color:#95f067">release</span><span style="color:#f8f8f2">/</span><span style="color:#ae81ff">132</span>
+</pre>
+					<p><strong>23. 寻找谁是始作俑者</strong></p>
+					<p>寻找谁更改了一个文件中的一行代码经常会用到。简单命令如下：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git blame FILE</span>
+</pre>
+					<p>有时更改来自于前一个文件（如果你已经合并了两个文件，或者你已经移动了一个函数），因此你可以这样用：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ # <span style="color:#95f067">shows which file names the content came from</span>
+$ <span style="color:#95f067">git blame</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">C FILE</span>
+</pre>
+					<p>有时通过向前或向后点击来进行变化跟踪，这是很好的方法。有一个内置的 GUI 程序专门为此设计：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git gui blame FILE</span>
+</pre>
+					<p><strong>24. 数据库维护</strong></p>
+					<p>Git 通常不需要大量维护，它基本上可以自我维护。然而，你可以使用如下命令查看数据库统计信息：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git count-objects</span> <span style="color:#f8f8f2">-</span><span style="color:#95f067">v</span>
+</pre>
+					<p>如果数值很高，你可以选择使用垃圾回收你的重复内容。这不会影响推送或者其它用户，但却可以让你的命令运行更快且占用更少空间：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git gc</span>
+</pre>
+					<p>经常运行一致性检查也是值得推荐的做法：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git fsck</span> <span style="color:#f8f8f2">--</span><span style="color:#95f067">full</span>
+</pre>
+					<p>你也可以在行尾添加一个 —auto 参数（如果你频繁运行它，或者在你的服务器上每日从 crontab 中运行它），如果统计数据表明必须进行要进行一致性检查，只要 fsck 命令就行。</p>
+					<p>如果检查 “dangling” 或 “unreachable” 的结果一切正常，这经常是由于回退 HEAD 或 rebasing的结果。如果检查“missing” 或 “sha1 mismatch” 出了问题...寻求专业帮助吧！</p>
+					<p><strong>25. 恢复一个丢失的分支</strong></p>
+					<p>如果你使用 -D 选项删除了一个分支 experimental，你可以重新创建它：</p>
+					<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+$ <span style="color:#95f067">git branch experimental SHA1</span>_<span style="color:#95f067">OF</span>_<span style="color:#95f067">HASH</span>
+</pre>
+					<p>你可以使用 git reflog 来发现一个 SHA-1 哈希值，如果你近期访问过它的话。</p>
+					<p>另一种方法是使用 <code style="background: #666666;padding: 0 3px;">git fsck —lost-found</code>。一个悬空的提交就是一个 lost HEAD（它只会是一个已删除分支的 HEAD，因为当一个 HEAD^ 被 HEAD 引用时，它就没有悬空）</p>
+					<hr>
+					<p><em>作者： <a href="https://github.com/andyjeffries" target="_blank">Andy Jeffries</a>，Ruby on Rails 开发者 &amp; 跆拳道教练，生活在英国伦敦。</em></p>
+					<p><em>原文： <a href="https://www.andyjeffries.co.uk/25-tips-for-intermediate-git-users/" target="_blank">25 Tips for Intermediate Git Users</a>（2009）</em></p>
+					<p><em>感谢： <a href="http://cafe.fujiji.com/u/jodoo" target="_blank">Jodoo</a> 帮助审阅并完成校对。</em></p>
+					<p>P.S. 如果您喜欢这篇文章并且希望学习编程技术的话，请关注一下 <a href="http://weibo.com/kongbin1246053598de" target="_blank">子乚木木彡</a>。</p>
+					<p>转载自:<a href="http://www.jianshu.com/p/63f9ecc3540c" target="_blank">简书</a></p>
+					<br />
+
+					<!--  share group -->
+					<div id="shared">
+						<ul id="nav">
+							<li><a class="fly" href="###">分享到...</a>
+								<ul class="dd">
+									
+									<li>
+										<a style="width: 110px;" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://i3.tietuku.com/03d5a102bb318bda.png&#39;, &#39;推荐iBrucekong的文章《Git 中级用户的25个提示》（ 分享自ibrucekong.github.io ）&#39;,&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"
+										data-name="weibo"><img src="http://i3.tietuku.com/3a35e6209e408558.png" style="width: 16px;height: 16px;">&nbsp;分享到微博</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 iBrucekong 的文章《Git 中级用户的25个提示》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"
+										data-name="qzone"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/qzone.png" style="width: 16px;height: 16px;">&nbsp;分享到QQ空间</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://widget.renren.com/dialog/share?resourceUrl=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;description=&#39;+e(&#39;推荐 iBrucekong 的文章《Git 中级用户的25个提示》&#39;)+&#39;&amp;title=&#39;+e(&#39;Git 中级用户的25个提示&#39;),x=function(){if(!window.open(r,&#39;renren&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"
+										data-name="renren"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/renren.png" style="width: 16px;height: 16px;">&nbsp;分享到人人网</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;title=&#39;+e(&#39;Git 中级用户的25个提示&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"
+										data-name="douban"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/douban.png" style="width: 16px;height: 16px;" align="center">&nbsp;分享到豆瓣</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+					</div>
+					<!--判断是不是移动端-->
+					<script type="text/javascript">var browser = {
+	version: function() {
+		var u = navigator.userAgent,
+			app = navigator.appVersion;
+		return {
+			trident: u.indexOf('Tredent') > -1, //IE内核
+			presto: u.indexOf('Presto') > -1, //opera内核
+			webkit: u.indexOf('AppleWebKit') > -1, //苹果 谷歌内核
+			gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+			mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+			ios: !!u.match(/\(i[^;]+;(U;)? CPU.+Mac OS X/), //ios终端
+			android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //Android终端或UC浏览器
+			iPhone: u.indexOf('iPhone') > -1, //是否是iPhone
+			iPad: u.indexOf('iPad') > -1, //是否是ipad
+			webApp: u.indexOf('Safari') > -1, //是否是web应用，没有头部和底部
+		};
+	}(),
+	language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.version.mobile == true) {
+	var t = document.getElementById('shared');
+	t.style.display = "none";
+} else {
+	var t = document.getElementById('shared');
+	t.style.display = "block";
+}</script>
+					<br />
+					<div class="comments">
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ibrucekung'; // required: replace example with your forum shortname
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+	var dsq = document.createElement('script');
+	dsq.type = 'text/javascript';
+	dsq.async = true;
+	dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script>
+						<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+						<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+				</section>
+			
+
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://twitter.com/ibrucekong">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/ibrucekong">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://git.oschina.net/bruce0325">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-stack-1x fa-inverse"><b>码</b></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; <a class="copyright text-muted" style="text-decoration: none;" href="http://ibrucekung.github.io">ibrucekung.github.io</a> 2016 All Rights Reserved
+                    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1259595335'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259595335%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+					</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

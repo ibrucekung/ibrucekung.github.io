@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	
+    <title>控制台，终端，tty，shell等概念的区别 | Bruce Kung</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="../css/comment.css" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Bruce Kung</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="http://ibrucekong.github.io">Old Blog</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ibrucekung/ibrucekung.github.io">Fork</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('../img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>控制台，终端，tty，shell等概念的区别</h1>
+                        <h2 class="subheading">控制台程序是为了兼容DOS程序而设立的，这种程序的执行就好像在一个DOS窗口中执行一样，没有自己的界面。</h2>
+                        <span class="meta">Posted by <a href="#">ibrucekung</a> on August 25, 2015</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+					<p style="text-indent: 2em;">使用linux已经有一段时间，却一直弄不明白这几个概念之间的区别。虽然一直在用，但是很多概念都感觉模糊不清，这样不上不下的状态实在令人不爽。下面就澄清一下这些概念。</p>
+					<p style="text-indent: 2em;">这些概念本身有着非常浓厚的历史气息，随着时代的发展，他们的含义也在发生改变，它们有些已经失去了最初的含义，但是它们的名字却被保留了下来。</p>
+					<h4 id="-console-">控制台(Console)</h4>
+					<p style="text-indent: 2em;">控制台(<a href="http://en.wikipedia.org/wiki/System_console">Console</a>)是物理设备，用于输入输出，它直接连接在计算机上，是计算机系统的一部分。计算机输出的信息会显示在控制台上，例如BIOS的输出，内核的输出。</p>
+					<h4 id="-terminal-">终端(Terminal)</h4>
+					<p style="text-indent: 2em;">终端(<a href="http://en.wikipedia.org/wiki/Computer_terminal">Terminal</a>)也是一台物理设备，只用于输入输出，本身没有强大的计算能力。一台计算机只有一个控制台，在计算资源紧张的时代，人们想共享一台计算机，可以通过终端连接到计算机上，将指令输入终端，终端传送给计算机，计算机完成指令后，将输出传送给终端，终端将结果显示给用户。</p>
+					<h4 id="-virtual-console-virtual-terminal-">虚拟控制台(Virtual Console)，虚拟终端(Virtual Terminal)</h4>
+					<p style="text-indent: 2em;">虚拟控制台(<a href="http://en.wikipedia.org/wiki/Virtual_console">Virtual Console</a>)和虚拟终端是一样的。我们只有一台终端（物理设备），这是我们与计算机之间的用户接口。假如有一天，我们想拥有多个用户接口，那么，一方面我们可以增加终端数目（物理设备），另一方面，还可以在同一台终端（物理设备）上虚拟出多个终端，它们之间互相不影响，至少看起来互相不影响。这些终端就是虚拟终端。</p>
+					<p style="text-indent: 2em;">在Ubuntu中，我们按下Ctrl+Alt+Fx时，会进入第x个虚拟终端，一共有七个虚拟终端，其中第七个虚拟终端，就是我们默认使用的图形用户界面。</p>
+					<h4 id="-terminal-emulator-">终端模拟器(Terminal Emulator)</h4>
+					<p style="text-indent: 2em;">我们知道，终端是一种物理设备，而终端模拟器(<a href="http://en.wikipedia.org/wiki/Terminal_emulator">Terminal Emulator</a>)，是一个程序，这些程序用来模拟物理终端。图形用户界面中的终端模拟器一般称为终端窗口(Terminal Window)，我们在Ubuntu下打开的gnome-terminal就属于此类。</p>
+					<h4 id="tty">tty</h4>
+					<p style="text-indent: 2em;">tty的全称是<a href="http://en.wikipedia.org/wiki/Teletypewriter">TeleTYpewriter</a>，这就是早期的终端（物理设备），它们用于向计算机发送数据，并将计算机的返回结果打印出来。显示器出现后，终端不再将结果打印出来，而是显示在显示器上。但是tty的名字还是保留了下来。</p>
+					<p style="text-indent: 2em;">在Ubuntu中，我们按下Ctrl+Alt+F1时，会进入第1个虚拟终端，你可以看到屏幕上方显示的tty1。</p>
+					<h4 id="shell">shell</h4>
+					<p style="text-indent: 2em;"><a href="http://en.wikipedia.org/wiki/Shell_(computing">shell</a> 和之前说的几个概念截然不同，之前的几个概念都是与计算机的输入输出相关的，而shell是和内核相关的。内核为上层的应用提供了很多服务，shell在内核的上层，在应用程序的下层。例如，你写了一个 hello world 程序，你并不用显式地创建一个进程来运行你的程序，你把写好的程序交给shell就行了，由shell负责为你的程序创建进程。</p>
+					<p style="text-indent: 2em;">我们在终端模拟器中输入命令时，终端模拟器本身并不解释执行这些命令，它只负责输入输出，真正解释执行这些命令的，是shell。</p>
+					<p style="text-indent: 2em;">我们平时使用的sh, bash, csh是shell的不同实现。</p>
+					<ul>
+						<li>
+							<p>sh
+								<br>sh这个概念本身就有岐义，它可以指shell程序的名字，也代表了shell的实现。</p>
+							<p> <a href="http://en.wikipedia.org/wiki/Thompson_shell">Thompson shell</a>是第一个Unix shell，由 Ken Thompso于1971年在Unix第一版本中引入，shell的程序名即为sh。<a href="http://en.wikipedia.org/wiki/Bourne_shell">Bourne shell</a>作为Thompson shell的替代，由 Stephen Bourne于1977年在Unix第七版中引入，它的程序名也是sh。Bourne
+								shell不仅仅是一个命令解释器，更作为一种编程语言，提供了Thompson shell不具备的程序控制功能，并随着 Brian W. Kernighan 和 Rob Pike 的 <em>The UNIX Programming Environment</em>的出版而名声大噪。</p>
+						</li>
+						<li>
+							<p>csh
+								<br><a href="http://en.wikipedia.org/wiki/C_shell">csh</a>全称为 C Shell，由 Bill Joy在70年代晚期完成，那时候他还是加州伯克利大学的研究生。tcsh是csh的升级版。与sh不同，csh的shell脚本，语法接近于C_language。</p>
+						</li>
+						<li>
+							<p>bash
+								<br><a href="http://en.wikipedia.org/wiki/Bash_(Unix_shell">bash</a>)是由 Brian Fox为GNU项目开发的自由软件，作为Bourne shell的替代品，于1989年发布。是Linux和Mac OS X的默认shell。bash的命令语法是Bourne shell命令语法的超集，从ksh和csh借鉴了一些思想。</p>
+						</li>
+					</ul>
+					<p style="text-indent: 2em;">好了，就写到这里，上面的内容是我参考维基百科后写下的，<strong>不保证完全正确</strong>，
+						<br>下面还提供了一些资料，如果有兴趣可以阅读一下。</p>
+					<h4 id="-">扩展阅读</h2>
+					<ol>
+						<li>
+							<p><a href="http://unix.stackexchange.com/questions/4126/what-is-the-exact-difference-between-a-terminal-a-shell-a-tty-and-a-con">What is the exact difference between a &#39;terminal&#39;, a &#39;shell&#39;, a &#39;tty&#39; and a &#39;console&#39;?</a></p>
+						</li>
+						<li>
+							<p><a href="http://www.linuxsir.org/bbs/thread362001.html?pageon=1#2059206">shell，bash,zsh,console,terminal到底是什么意思，它们之间又是什么关系？</a></p>
+						</li>
+						<li>
+							<p><a href="http://blog.csdn.net/caomiao2006/article/details/8791775">shell、控制台、终端的区别</a></p>
+						</li>
+						<li>
+							<p><a href="http://askubuntu.com/questions/14284/why-is-a-virtual-terminal-virtual-and-what-why-where-is-the-real-terminal">Why is a virtual terminal “virtual”, and what/why/where is the “real” terminal?</a></p>
+						</li>
+					</ol>
+					<h4>参考自:<a href="http://minixalpha.github.io/工具/2014/02/28/terminal-shell.html">Minixalpha Blog</a></h4>
+					
+					<br />
+
+					<!--  share group -->
+					<div id="shared">
+						<ul id="nav">
+							<li><a class="fly" href="###">分享到...</a>
+								<ul class="dd">
+									
+									<li>
+										<a style="width: 110px;" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://i3.tietuku.com/03d5a102bb318bda.png&#39;, &#39;推荐iBrucekong的文章《Git 中级用户的25个提示》（ 分享自ibrucekong.github.io ）&#39;,&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"
+										data-name="weibo"><img src="http://i3.tietuku.com/3a35e6209e408558.png" style="width: 16px;height: 16px;">&nbsp;分享到微博</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 iBrucekong 的文章《Git 中级用户的25个提示》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"
+										data-name="qzone"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/qzone.png" style="width: 16px;height: 16px;">&nbsp;分享到QQ空间</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://widget.renren.com/dialog/share?resourceUrl=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;description=&#39;+e(&#39;推荐 iBrucekong 的文章《Git 中级用户的25个提示》&#39;)+&#39;&amp;title=&#39;+e(&#39;Git 中级用户的25个提示&#39;),x=function(){if(!window.open(r,&#39;renren&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"
+										data-name="renren"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/renren.png" style="width: 16px;height: 16px;">&nbsp;分享到人人网</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;title=&#39;+e(&#39;Git 中级用户的25个提示&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"
+										data-name="douban"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/douban.png" style="width: 16px;height: 16px;" align="center">&nbsp;分享到豆瓣</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+					</div>
+					<!--判断是不是移动端-->
+					<script type="text/javascript">var browser = {
+	version: function() {
+		var u = navigator.userAgent,
+			app = navigator.appVersion;
+		return {
+			trident: u.indexOf('Tredent') > -1, //IE内核
+			presto: u.indexOf('Presto') > -1, //opera内核
+			webkit: u.indexOf('AppleWebKit') > -1, //苹果 谷歌内核
+			gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+			mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+			ios: !!u.match(/\(i[^;]+;(U;)? CPU.+Mac OS X/), //ios终端
+			android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //Android终端或UC浏览器
+			iPhone: u.indexOf('iPhone') > -1, //是否是iPhone
+			iPad: u.indexOf('iPad') > -1, //是否是ipad
+			webApp: u.indexOf('Safari') > -1, //是否是web应用，没有头部和底部
+		};
+	}(),
+	language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.version.mobile == true) {
+	var t = document.getElementById('shared');
+	t.style.display = "none";
+} else {
+	var t = document.getElementById('shared');
+	t.style.display = "block";
+}
+					</script>
+					<br />
+					<div class="comments">
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'ibrucekong'; // required: replace example with your forum shortname
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+	var dsq = document.createElement('script');
+	dsq.type = 'text/javascript';
+	dsq.async = true;
+	dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script>
+						<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+						<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        </div>
+       </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://twitter.com/ibrucekong">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/ibrucekong">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://git.oschina.net/bruce0325">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-stack-1x fa-inverse"><b>码</b></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; <a class="copyright text-muted" style="text-decoration: none;" href="http://ibrucekung.github.io">ibrucekung.github.io</a> 2016 All Rights Reserved
+                    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1259595335'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259595335%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+					</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

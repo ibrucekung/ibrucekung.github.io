@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+		<title>Markdown学习入门 | Bruce Kung</title>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="../css/clean-blog.min.css" rel="stylesheet">
+
+		<!-- Custom Fonts -->
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="../css/comment.css" />
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	</head>
+
+	<body>
+
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header page-scroll">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+					<a class="navbar-brand" href="../index.html">Bruce Kung</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="../index.html">Home</a>
+						</li>
+						<li>
+							<a href="../about.html">About</a>
+						</li>
+						<li>
+							<a href="http://ibrucekong.github.io">Old Blog</a>
+						</li>
+						<li>
+							<a href="https://github.com/ibrucekung/ibrucekung.github.io">Fork</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container -->
+		</nav>
+
+		<!-- Page Header -->
+		<!-- Set your background image for this header on the line below. -->
+		<header class="intro-header" style="background-image: url('../img/post-bg.jpg')">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+						<div class="post-heading">
+							<h1>Markdown学习入门</h1>
+							<h2 class="subheading">Markdown是一种可以使用普通文本编辑器编写的标记语言，通过类似HTML的标记语法，它可以使普通文本内容具有一定的格式。</h2>
+							<span class="meta">Posted by <a href="#">ibrucekung</a> on August 23, 2015</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Post Content -->
+		<article>
+			<div class="container">
+				<div class="row">
+					<h4 style="text-align: end;">Tools Editor : <a href="http://mike-ward.net/download/?file=MarkdownEditSetup.msi" target="_blank" style="text-decoration: none;color: blue;">Markdown edit</a></h4>
+					<h4 style="text-align: end;">Tools Editor : <a href="http://www.ttrar.com/html/MarkdownPad-Pro-Portable.html" target="_blank" style="text-decoration: none;color: blue;">MarkdownPad2</a></h4>
+					<br />
+					<h2>什么是 Markdown</h2>
+					<p style="text-indent: 2em;">Markdown是一种可以使用普通文本编辑器编写的标记语言，通过类似HTML的标记语法，它可以使普通文本内容具有一定的格式。</p>
+					<p style="text-indent: 2em;">Markdown具有一系列衍生版本，用于扩展Markdown的功能（如表格、脚注、内嵌HTML等等），这些功能原初的Markdown尚不具备，它们能让Markdown转换成更多的格式，例如LaTeX，Docbook。Markdown增强版中比较有名的有Markdown Extra、MultiMarkdown、 Maruku等。这些衍生版本要么基于工具，如Pandoc；要么基于网站，如GitHub和Wikipedia，在语法上基本兼容，但在换行等细节上也有改动。</p>
+					<h2>为什么使用 Markdown</h2>
+
+					<li style="text-indent: 2em;">看上去不错</li>
+					<li style="text-indent: 2em;">既然看上去不错，为什么不试试呢 ---</li>
+					<h2>如何使用 Markdonw</h2>
+
+					<ol>
+						<h4><li>标题级别</li></h4>
+						<p>显示效果：</p>
+						<h1>一级标题</h1>
+						<h2>二级标题</h2>
+						<h3>三级标题</h3>
+						<p>代码：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f8f8f2">#</span> <span style="color:#66d9ef">一级标题</span>
+<span style="color:#f8f8f2">##</span> <span style="color:#66d9ef">二级标题</span>
+<span style="color:#f8f8f2">###</span> <span style="color:#66d9ef">三级标题</span>
+</pre>
+						<h4><li>列表</li></h4>
+						<p>无需列表效果：</p>
+						<ul>
+							<li>列表1</li>
+							<li>列表2</li>
+							<li>列表3</li>
+						</ul>
+						<p>代码 (注意星号与文字之间的空格)：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#66d9ef">*</span> 列表1
+<span style="color:#66d9ef">*</span> 列表2
+<span style="color:#66d9ef">*</span> 列表3
+</pre>
+						<p>无需列表效果：</p>
+						<ul>
+							<li>列表1</li>
+							<li>列表2</li>
+							<li>列表3</li>
+						</ul>
+						<p>代码 (注意星号与文字之间的空格)：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#ae81ff">1</span>. 列表1
+<span style="color:#ae81ff">2</span>. 列表2
+<span style="color:#ae81ff">3</span>. 列表3
+</pre>
+						<h4><li>引用</li></h4>
+						<p>显示效果：</p>
+						<p>来试试 <span style="background: #CCCCCC;padding: 0 3px;">Markdown</span> 吧</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+来试试 `<span style="color:#66d9ef">Markdown</span>` 吧
+</pre>
+						<h4><li>代码块引用</li></h4>
+						<p>显示效果：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f92672; font-weight:bold">def</span> <span style="color:#25faac">hello</span><span style="color:#f8f8f2">():</span> 
+<span style="color:#f92672; font-weight:bold">print</span> <span style="color:#e6db74">'hello, world'</span>
+</pre>
+						<p>代码：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+```python
+def hello<span style="color:#f8f8f2">()</span><span style="color:#25faac">:</span>
+    print <span style="color:#f8f8f2">'hello, world'</span>
+```
+</pre>
+						<h4><li>文字引用</li></h4>
+						<p>显示效果：</p>
+						<blockquote>春 眠 不 觉 晓，处 处 闻 啼 鸟。
+							<br /> 夜 来 风 雨 声，花 落 知 多 少。</blockquote>
+						<p>代码：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+```
+<span style="color:#f92672; font-weight:bold">&gt;</span> 春 眠 不 觉 晓，
+<span style="color:#f92672; font-weight:bold">&gt;</span> 处 处 闻 啼 鸟。
+<span style="color:#f92672; font-weight:bold">&gt;</span> 夜 来 风 雨 声， 
+<span style="color:#f92672; font-weight:bold">&gt;</span> 花 落 知 多 少。
+```
+</pre>
+						<p>显示效果：</p>
+						<blockquote>春 眠 不 觉 晓，处 处 闻 啼 鸟。
+							<br /> 夜 来 风 雨 声，花 落 知 多 少。</blockquote>
+						<p>代码(需要换行可在句末加两个空格):</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+```
+<span style="color:#f92672; font-weight:bold">&gt;</span> 春 眠 不 觉 晓，
+处 处 闻 啼 鸟。 
+夜 来 风 雨 声，
+花 落 知 多 少。
+```
+</pre>
+						<p>显示效果：</p>
+						<p>
+							春 眠 不 觉 晓，
+							<br /> 处 处 闻 啼 鸟。
+							<br /> 夜 来 风 雨 声，
+							<br /> 花 落 知 多 少。
+						</p>
+						<p>代码(需要换行可在句末加两个空格)：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+```
+    春 眠 不 觉 晓，
+    处 处 闻 啼 鸟。
+    夜 来 风 雨 声，
+    花 落 知 多 少。
+```
+</pre>
+						<h4>文字</h4>
+
+						<p><i>斜体</i></p>
+						<p>显示效果：</p>
+						<p>这是一个<i>斜体</i></p>
+						<p>代码：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+come <span style="color:#f8f8f2">*</span><span style="color:#25faac">Markdown</span><span style="color:#f8f8f2">*</span> on
+</pre>
+						<p><strong>粗体</strong></p>
+						<p>显示效果：</p>
+						<p>这是一个<strong>粗体</strong></p>
+						<p>代码：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+come <span style="color:#f8f8f2">**</span><span style="color:#25faac">Markdown</span><span style="color:#f8f8f2">**</span> on
+</pre>
+
+						<h4><li>链接</li></h4>
+
+						<p>网页链接</p>
+						<p>显示效果：</p>
+						<p>参见Wiki词条<a href="http://zh.wikipedia.org/wiki/Markdown">Markdown</a></p>
+						<p>代码：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+<span style="color:#f8f8f2">参见Wiki词条[</span><span style="color:#95f067">Markdown</span><span style="color:#f8f8f2">](</span><span style="color:#95f067">http</span>://<span style="color:#95f067">zh</span>.<span style="color:#95f067">wikipedia</span>.<span style="color:#95f067">org</span>/<span style="color:#95f067">wiki</span>/<span style="color:#95f067">Markdown</span><span style="color:#f8f8f2">)</span>
+</pre>
+						<p>图片</p>
+						<p>显示效果：</p>
+						<p style="text-align: center;">
+						<img src="http://upload.wikimedia.org/wikipedia/commons/6/63/Wikipedia-logo.png" style="max-width: 80%;" />
+						</p>
+						<p>代码：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+!<span style="color:#f8f8f2">[</span><span style="color:#95f067">Wikipedia</span>_<span style="color:#95f067">logo</span><span style="color:#f8f8f2">](</span><span style="color:#95f067">http</span>://<span style="color:#95f067">upload</span>.<span style="color:#95f067">wikimedia</span>.<span style="color:#95f067">org</span>/<span style="color:#95f067">wikipedia</span>/<span style="color:#95f067">commons</span>/<span style="color:#95f067">6</span>/<span style="color:#95f067">63</span>/<span style="color:#95f067">Wikipedia-logo</span>.<span style="color:#95f067">png</span><span style="color:#f8f8f2">)</span>
+</pre>
+
+						<h4><li>公式</li></h4>
+						<p>显示效果：</p>
+						<p style="background: #CCCCCC;">$$ \sum^{j-1}\_{k=0}{\widehat{\gamma}\_{kj} z_k} $$</p>
+						<p>代码：</p>
+						<pre style="color:#f8f8f2; background-color:#272822;font-family:'Helvetica';">
+    <span style="color:#ae81ff">$$</span> \sum<span style="color:#f8f8f2">^{</span>j<span style="color:#66d9ef">-</span><span style="color:#ae81ff">1</span><span style="color:#f8f8f2">}</span>\_<span style="color:#f8f8f2">{</span>k<span style="color:#66d9ef">=</span><span style="color:#ae81ff">0</span><span style="color:#f8f8f2">}{</span>\widehat<span style="color:#f8f8f2">{</span>\gamma<span style="color:#f8f8f2">}</span>\_<span style="color:#f8f8f2">{</span>kj<span style="color:#f8f8f2">}</span> <span style="color:#66d9ef">z_k</span><span style="color:#f8f8f2">}</span> <span style="color:#ae81ff">$$</span>
+</pre>
+					</ol>
+					<br />
+
+					<!--  share group -->
+					<div id="shared">
+						<ul id="nav">
+							<li><a class="fly" href="###">分享到...</a>
+								<ul class="dd">
+
+									<li>
+										<a style="width: 110px;" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://i3.tietuku.com/03d5a102bb318bda.png&#39;, &#39;推荐iBrucekong的文章《Git 中级用户的25个提示》（ 分享自ibrucekong.github.io ）&#39;,&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"
+											data-name="weibo"><img src="http://i3.tietuku.com/3a35e6209e408558.png" style="width: 16px;height: 16px;">&nbsp;分享到微博</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 iBrucekong 的文章《Git 中级用户的25个提示》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"
+											data-name="qzone"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/qzone.png" style="width: 16px;height: 16px;">&nbsp;分享到QQ空间</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://widget.renren.com/dialog/share?resourceUrl=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;description=&#39;+e(&#39;推荐 iBrucekong 的文章《Git 中级用户的25个提示》&#39;)+&#39;&amp;title=&#39;+e(&#39;Git 中级用户的25个提示&#39;),x=function(){if(!window.open(r,&#39;renren&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"
+											data-name="renren"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/renren.png" style="width: 16px;height: 16px;">&nbsp;分享到人人网</a>
+									</li>
+									<li>
+										<a style="width: 110px;" href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://ibrucekong.github.io/article/2015-08-28-learn-git-25-tips.html&#39;)+&#39;&amp;title=&#39;+e(&#39;Git 中级用户的25个提示&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"
+											data-name="douban"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/douban.png" style="width: 16px;height: 16px;" align="center">&nbsp;分享到豆瓣</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+					</div>
+					<!--判断是不是移动端-->
+					<script type="text/javascript">
+						var browser = {
+							version: function() {
+								var u = navigator.userAgent,
+									app = navigator.appVersion;
+								return {
+									trident: u.indexOf('Tredent') > -1, //IE内核
+									presto: u.indexOf('Presto') > -1, //opera内核
+									webkit: u.indexOf('AppleWebKit') > -1, //苹果 谷歌内核
+									gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+									mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+									ios: !!u.match(/\(i[^;]+;(U;)? CPU.+Mac OS X/), //ios终端
+									android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //Android终端或UC浏览器
+									iPhone: u.indexOf('iPhone') > -1, //是否是iPhone
+									iPad: u.indexOf('iPad') > -1, //是否是ipad
+									webApp: u.indexOf('Safari') > -1, //是否是web应用，没有头部和底部
+								};
+							}(),
+							language: (navigator.browserLanguage || navigator.language).toLowerCase()
+						}
+						if (browser.version.mobile == true) {
+							var t = document.getElementById('shared');
+							t.style.display = "none";
+						} else {
+							var t = document.getElementById('shared');
+							t.style.display = "block";
+						}
+					</script>
+					<br />
+					<div class="comments">
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">
+							/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+							var disqus_shortname = 'ibrucekong'; // required: replace example with your forum shortname
+							/* * * DON'T EDIT BELOW THIS LINE * * */
+							(function() {
+								var dsq = document.createElement('script');
+								dsq.type = 'text/javascript';
+								dsq.async = true;
+								dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+								(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+							})();
+						</script>
+						<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+						<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+					</div>
+					<hr>
+				</div>
+			</div>
+		</article>
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+						<ul class="list-inline text-center">
+							<li>
+								<a href="https://twitter.com/ibrucekong">
+									<span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+								</a>
+							</li>
+							<li>
+								<a href="https://github.com/ibrucekong">
+									<span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+								</a>
+							</li>
+							<li>
+								<a href="http://git.oschina.net/bruce0325">
+									<span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-stack-1x fa-inverse"><b>码</b></i>
+                                </span>
+								</a>
+							</li>
+						</ul>
+						<p class="copyright text-muted">Copyright &copy; <a class="copyright text-muted" style="text-decoration: none;" href="http://ibrucekung.github.io">ibrucekung.github.io</a> 2016 All Rights Reserved
+							<script type="text/javascript">
+								var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+								document.write(unescape("%3Cspan id='cnzz_stat_icon_1259595335'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259595335%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+							</script>
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- jQuery -->
+		<script src="../js/jquery.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="../js/bootstrap.min.js"></script>
+
+		<!-- Custom Theme JavaScript -->
+		<script src="../js/clean-blog.min.js"></script>
+
+	</body>
+
+</html>

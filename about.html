@@ -10,8 +10,8 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-    <title>Home | Bruce Kung</title>
-
+    <title>About | Bruce Kung
+	</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,18 +22,17 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
+	<script type="text/javascript" src="js/onloading.js" ></script>
+	<script type="text/javascript" src="js/music.js" ></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
-<body>
-
+<body onload="onloading()">
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
@@ -72,14 +71,14 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
+    <header class="intro-header" style="background-image: url('img/about-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
+                    <div class="page-heading">
                         <h1>Bruce Kung</h1>
                         <hr class="small">
-                        <span class="subheading">Cease to struggle and you cease to live</span>
+                        <span class="subheading">Hey, you find me !</span>
                     </div>
                 </div>
             </div>
@@ -89,85 +88,91 @@
     <!-- Main Content -->
     <div class="container">
         <div class="row">
+        	<div class="col-lg-8 col-lg-offset-2 col-md-offset-1">
+        		<center>
+        			<p align="center">
+        				<img src="img/header.jpg" width="200" height="200" align="center" class="img-responsive"/>
+        			</p>
+        		</center>
+        	</div>
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-preview">
-                    <a href="posts/2015-08-28-learn-git-25-tips.html">
-                        <h2 class="post-title">
-                            Git 中级用户的25个提示
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">ibrucekung</a> on August 28, 2015</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="posts/2015-08-25-terminal-shell.html">
-                        <h2 class="post-title">
-                            	控制台，终端，tty，shell等概念的区别
-                        </h2>
-                        <h3 class="post-subtitle">
-                        	控制台程序是为了兼容DOS程序而设立的，这种程序的执行就好像在一个DOS窗口中执行一样，没有自己的界面。
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">ibrucekung</a> on August 25, 2015</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="posts/2015-08-24-how-to-write-hight-qulity-program.html">
-                        <h2 class="post-title">
-                            	如何编写高质量的程序
-                        </h2>
-                        <h3 class="post-subtitle">
-                            学习任何编程语言都会有一个基本的过程，开始的时候学习基本的语法，然后学习各种库，框架，开始做各种项目。
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">ibrucekung</a> on August 23, 2015</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="posts/2015-08-23-markdown-note.html">
-                        <h2 class="post-title">
-                            Markdown学习入门
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Markdown是一种可以使用普通文本编辑器编写的标记语言，通过类似HTML的标记语法，它可以使普通文本内容具有一定的格式。
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">ibrucekung</a> on August 23, 2015</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="posts/2015-08-22-android-ndk.html">
-                        <h2 class="post-title">
-                            Android NDK学习入门教程
-                        </h2>
-                        <h3 class="post-subtitle">
-                            使用Android NDK主要就是为了提升应用的性能,同时NDK绕过了Android的虚拟机的限制,可以使用一些更加底层的方法或是权限。
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">ibrucekung</a> on August 22, 2015</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="posts/2015-08-22-android-teammanager.html">
-                        <h2 class="post-title">
-                            Android之TeamManager项目简介
-                        </h2>
-                        <h3 class="post-subtitle">
-                            本系统是基于GIS的团队管理Android应用，采用B/S架构进行Android客户端与服务器端开发，调用百度地图API提供地图服务。
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">ibrucekung</a> on August 22, 2015</p>
-                </div>
-                <hr />
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="pages/page_2.html">Older</a>
-                    </li>
-                </ul>
+                <p align="center">
+</p><p align="center">
+</p><p align="center">
+</p><p align="center">
+</p><p align="center">
+</p><p align="center">My love -  Westlife
+</p><p align="center"><audio id="music" src="audio/My_Love.mp3" autoplay="autoplay" loop="loop">你的浏览器不支持audio标签</audio>
+
+<a href="#music" onclick="bf();">
+	<img id="music_bg" src="img/pause.png" height="40" height="40" alt="暂停" style="cursor: hand;"/>
+</a>
+
+</p><p align="center">An empty street an empty house a hole inside my heart
+</p><p align="center">
+</p><p align="center">I'm all alone and the rooms are getting smaller
+</p><p align="center">
+</p><p align="center">I wonder how I wonder why I wonder where they are
+</p><p align="center">
+</p><p align="center">The days we had the songs we sang together
+</p><p align="center">Oh yeah
+</p><p align="center">
+</p><p align="center">And oh my love I'm holding on forever
+</p><p align="center">
+</p><p align="center">Reaching for a love that seems so far
+</p><p align="center">
+</p><p align="center">So I say a little prayer
+</p><p align="center">And hope my dreams will take me there
+</p><p align="center">Where the skies are blue to see you once again my love
+</p><p align="center">Over seas and coast to coast
+</p><p align="center">To find a place I love the most
+</p><p align="center">Where the fields are green to see you once again
+</p><p align="center">
+</p><p align="center">My love
+</p><p align="center">
+</p><p align="center">I try to read I go to work I'm laughing with my friends
+</p><p align="center">
+</p><p align="center">But I can't stop to keep myself from thinking
+</p><p align="center">Oh no
+</p><p align="center">
+</p><p align="center">I wonder how I wonder why I wonder where they are
+</p><p align="center">
+</p><p align="center">The days we had the songs we sang together
+</p><p align="center">Oh yeah
+</p><p align="center">
+</p><p align="center">And oh my love I'm holding on forever
+</p><p align="center">
+</p><p align="center">Reaching for a love that seems so far
+</p><p align="center">
+</p><p align="center">So I say a little prayer
+</p><p align="center">And hope my dreams will take me there
+</p><p align="center">Where the skies are blue to see you once again my love
+</p><p align="center">Over seas and coast to coast
+</p><p align="center">To find a place I love the most
+</p><p align="center">Where the fields are green to see you once again
+</p><p align="center">To hold you in my arms
+</p><p align="center">
+</p><p align="center">To promise you my love
+</p><p align="center">
+</p><p align="center">To tell you from the heart
+</p><p align="center">
+</p><p align="center">You're all I'm thinking of
+</p><p align="center">
+</p><p align="center">I'm reaching for a love that seems so far
+</p><p align="center">So I say a little prayer
+</p><p align="center">And hope my dreams will take me there
+</p><p align="center">Where the skies are blue to see you once again my love
+</p><p align="center">Over seas and coast to coast
+</p><p align="center">To find a place I love the most
+</p><p align="center">Where the fields are green to see you once again my love
+</p><p align="center">Say a little prayer
+</p><p align="center">Dreams will take me there
+</p><p align="center">Where the skies are blue to see you once again
+</p><p align="center">
+</p><p align="center">Over seas and coast to coast
+</p><p align="center">To find a place I love the most
+</p><p align="center">Where the fields are green to see you once again
+</p><p align="center">My love</p>
             </div>
         </div>
     </div>
@@ -206,7 +211,8 @@
                         </li>
                     </ul>
                     <p class="copyright text-muted">Copyright &copy; <a class="copyright text-muted" style="text-decoration: none;" href="http://ibrucekung.github.io">ibrucekung.github.io</a> 2016 All Rights Reserved
-                    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259595335'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259595335%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+                    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1259595335'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1259595335%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 					</p>
                 </div>
             </div>
@@ -225,5 +231,3 @@
 </body>
 
 </html>
-
-
